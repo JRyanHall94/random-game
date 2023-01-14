@@ -8,8 +8,68 @@
     <title>random-game</title>
 </head>
 
-<body>
-    <h1>Hello, World!</h1>
+<style>
+    html {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+    }
+
+    .choice {
+        display: block;
+        position: absolute;
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
+
+    .choice h1 {
+        font-size: 1.8rem;
+    }
+</style>
+
+<body onload="randomizeGame()">
+    <div class="choice">
+        <h1>What are we gonna play today?</h1>
+        <p>placeholder</p>
+        <input type="button" value="Let's go!" onclick="myFunction()" />
+    </div>
+</body>
+
+<script>
+    let gameList = [
+        'Grounded',
+        'Generation 0 (Zero)',
+        'Golf with your Friends',
+        'Minecraft Dungeons',
+        'Human Fall Flat'
+    ]
+
+    gameChoice = document.querySelector('.choice p');
+
+    function randomizeGame() {
+        gameChoice.innerHTML = randomGame();
+    }
+
+    function randomGame() {
+        let choice = Math.floor(Math.random() * gameList.length);
+        return gameList[choice];
+    }
+
+    function myFunction() {
+        clearInterval(interval);
+        gameChoice.innerHTML = randomGame().bold();
+        gameChoice.style.color = 'red';
+        gameChoice.style.fontSize = '1.4rem';
+        document.querySelector('.choice input').disabled = true;
+    }
+
+    const interval = setInterval(randomizeGame, 1000)
+</script>
+
 </body>
 
 </html>
